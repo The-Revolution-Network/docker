@@ -23,11 +23,9 @@ no-restart-launch: .PHONY2
 
 launch:
 	sudo docker run -itd \
-		-p $(INTERNALIP):80:80 \
-		-p $(INTERNALIP):443:443 \
+		-p 5000 \
 		$(NETWORKFLAGS) \
 		--hostname $(DOMAIN).$(TLD) \
-		-v /docker-www/$(DOMAIN).$(TLD):/var/www/$(DOMAIN).$(TLD) \
 		--name "$(IMAGENAME)" \
 		$(LAUNCHFLAGS) \
 		"$(REPONAME):$(IMAGENAME)"
