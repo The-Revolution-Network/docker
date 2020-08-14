@@ -1,0 +1,10 @@
+REPONAME := the-revolution-network
+DOMAIN := therevolution
+TLD := network
+OURUSER := www.therevolution
+OURGROUP := www.users
+IMAGENAME := blazor-$(DOMAIN)-$(TLD)
+INTERNALIP := 192.168.12.91
+DOCKERRMFLAGS := 
+LAUNCHFLAGS := --restart unless-stopped
+NETWORKFLAGS:= 
