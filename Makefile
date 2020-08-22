@@ -2,6 +2,13 @@ SHELL := /bin/bash
 include ./Makefile.host
 include ../httpd-ssl-base/Makefile.include
 
+git-pull:
+	git pull origin master
+	git submodule update --recursive
+
+.PHONE: .git-pull-build-relaunch
+PPBR: | git-pull build-relaunch
+
 build:
 	# copy replacements first to make sure we have all pieces successfully first
 	#sudo cp -afpL /docker-www/letsencrypt/letsencrypt/live/$(DOMAIN).$(TLD)/cert.pem ./cert-new.pem
