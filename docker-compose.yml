@@ -1,0 +1,40 @@
+version: "2.1"
+services:
+  bookstack:
+    image: the-revolution-network:blazor
+    container_name: blazor
+    environment:
+      - PUID=2021
+      - PGID=1999
+      - APP_URL=https://therevolution.network
+    volumes:
+      - /docker-www/therevolution.network/config:/config
+    ports:
+      - 5000:80 # connect host 6875 to container 80
+    restart: unless-stopped
+  letsencrypt:
+    image: linuxserver/letsencrypt
+    container_name: the-revolution-network-letsencrypt
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=2021
+      - PGID=1999
+      - TZ=US/Pacific
+      - URL=therevolution.network
+      - SUBDOMAINS=www,viva
+      - VALIDATION=http
+      - DNSPLUGIN= #cloudflare #optional
+      - PROPAGATION= #optional
+      - DUCKDNSTOKEN= #optional
+      - EMAIL=viva@therevolution.network #optional
+      - ONLY_SUBDOMAINS= #true optional
+      - EXTRA_DOMAINS= #optional
+      - STAGING=false #optional
+      - MAXMINDDB_LICENSE_KEY=
+    volumes:
+      - /docker-www/therevolution.network/config:/config
+    ports:
+      - 192.168.12.91:443:443
+      - 192.168.12.91:80:80
+    restart: unless-stopped

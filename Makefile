@@ -28,11 +28,16 @@ build:
 no-restart-launch: .PHONY2
 	$(eval LAUNCHFLAGS := )
 
+.PHONY: exec-bash
+letsencrypt-exec-bash:
+	sudo docker exec -it the-revolution-network-letsencrypt bash
+
+rm-latest:
+	sudo docker rm the-revolution-network-blazor
+	sudo docker rm the-revolution-network-letsencrypt
+
 launch:
-	sudo docker run -itd \
-		-p 5000 \
-		$(NETWORKFLAGS) \
-		--hostname $(DOMAIN).$(TLD) \
-		--name "$(IMAGENAME)" \
-		$(LAUNCHFLAGS) \
-		"$(REPONAME):$(IMAGENAME)"
+	sudo docker-compose up -d
+
+stop:
+	sudo docker-compose down
